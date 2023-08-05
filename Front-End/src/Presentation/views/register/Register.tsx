@@ -9,8 +9,13 @@ import {
   StyleSheet,
 } from "react-native";
 import { RoundedButton } from "../../components/RoundedButton";
+import useViewModel from './ViewModel';
+import { CustomTextInput } from "../../components/CustomTextInput";
 
 export const RegisterScreen = () => {
+
+  const{name,lastname,email,phone,password,confirmPassword,onChange} =useViewModel();
+
   return (
     <View style={styles.container}>
       <Image
@@ -26,74 +31,57 @@ export const RegisterScreen = () => {
       </View>
       <View style={styles.form}>
         <Text style={styles.formText}>REGISTRARSE</Text>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require("../../../../assets/user.png")}
-          />
-          <TextInput
+        <CustomTextInput
             placeholder="Nombres"
-            style={styles.formTextInput}
             keyboardType="default"
+            image={require("../../../../assets/user_image.png")}
+            property="name"
+            onChangeText={onChange}
+            value={name}
           />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require("../../../../assets/my_user.png")}
-          />
-          <TextInput
+          <CustomTextInput
             placeholder="Apellidos"
-            style={styles.formTextInput}
             keyboardType="default"
+            image={require("../../../../assets/user.png")}
+            property="lastname"
+            onChangeText={onChange}
+            value={lastname}
           />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require("../../../../assets/email.png")}
-          />
-          <TextInput
+          <CustomTextInput
             placeholder="Correo Electronico"
-            style={styles.formTextInput}
             keyboardType="email-address"
+            image={require("../../../../assets/user.png")}
+            property="email"
+            onChangeText={onChange}
+            value={email}
           />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require("../../../../assets/phone.png")}
-          />
-          <TextInput
+          <CustomTextInput
             placeholder="Telefono"
-            style={styles.formTextInput}
             keyboardType="numeric"
+            image={require("../../../../assets/user.png")}
+            property="phone"
+            onChangeText={onChange}
+            value={phone}
           />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require("../../../../assets/password.png")}
-          />
-          <TextInput
+
+          <CustomTextInput
             placeholder="Contraseña"
-            style={styles.formTextInput}
             keyboardType="default"
+            image={require("../../../../assets/password.png")}
+            property="password"
+            onChangeText={onChange}
+            value={password}
             secureTextEntry={true}
           />
-        </View>
-        <View style={styles.formInput}>
-          <Image
-            style={styles.formIcon}
-            source={require("../../../../assets/confirm_password.png")}
-          />
-          <TextInput
+          <CustomTextInput
             placeholder="Confirmar Contraseña"
-            style={styles.formTextInput}
             keyboardType="default"
+            image={require("../../../../assets/user.png")}
+            property="confirmPassword"
+            onChangeText={onChange}
+            value={confirmPassword}
             secureTextEntry={true}
           />
-        </View>
         <View style={{ marginTop: 30 }}>
           <RoundedButton
             onPress={() => ToastAndroid.show("Hola", ToastAndroid.SHORT)}

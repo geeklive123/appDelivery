@@ -5,6 +5,7 @@ import { RoundedButton } from "../../components/RoundedButton";
 import {StackNavigationProp} from '@react-navigation/stack'
 import { RootStackParamList } from '../../../../App';
 import useViewModel from './ViewModel';
+import { CustomTextInput } from '../../components/CustomTextInput';
 export const HomeScreen = () => {
       const {email,password,onChannge}=useViewModel();
 
@@ -22,33 +23,25 @@ export const HomeScreen = () => {
           </View>
           <View style={styles.form}>
             <Text style={styles.formText}>INGRESAR</Text>
-            <View style={styles.formInput}>
-              <Image
-                style={styles.formIcon}
-                source={require("../../../../assets/email.png")}
-              />
-              <TextInput
-                placeholder="Correo Electronico"
-                style={styles.formTextInput}
-                keyboardType="email-address"
-                value={email}
-                onChangeText={text=>onChannge('email',text)}
-              />
-            </View>
-            <View style={styles.formInput}>
-              <Image
-                style={styles.formIcon}
-                source={require("../../../../assets/password.png")}
-              />
-              <TextInput
-                placeholder="Contraseña"
-                style={styles.formTextInput}
-                keyboardType="default"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={text=>onChannge('password',text)}
-              />
-            </View>
+            <CustomTextInput
+            image={require('../../../../assets/email.png')}
+            placeholder='Correo Electronico'
+            keyboardType='email-address'
+            property='email'
+            onChangeText={onChannge}
+            value={email}
+            />
+
+<CustomTextInput
+        image={require('../../../../assets/password.png')}
+        placeholder="Contraseña"
+        keyboardType="default"
+        secureTextEntry={true}
+        property="password"
+        onChangeText={onChannge}
+        value={password}
+       
+       />
             <View style={{marginTop:30}}>
             <RoundedButton onPress={()=>{
               console.log('Email: ',+email);
