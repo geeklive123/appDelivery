@@ -15,11 +15,11 @@ export const RegisterScreen = () => {
     <View style={styles.container}>
       <Image
         style={styles.imageBackground}
-        source={require("../../../assets/chef.jpg")}
+        source={require("../../../../assets/chef.jpg")}
       />
       <View style={styles.logoContainer}>
         <Image
-          source={require("../../../assets/user_image.png")}
+          source={require("../../../../assets/user_image.png")}
           style={styles.logoImage}
         />
         <Text style={styles.logoText}>SELECCIONA UNA IMAGEN</Text>
@@ -29,7 +29,7 @@ export const RegisterScreen = () => {
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
-            source={require("../../../assets/user.png")}
+            source={require("../../../../assets/user.png")}
           />
           <TextInput
             placeholder="Nombres"
@@ -40,7 +40,7 @@ export const RegisterScreen = () => {
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
-            source={require("../../../assets/my_user.png")}
+            source={require("../../../../assets/my_user.png")}
           />
           <TextInput
             placeholder="Apellidos"
@@ -51,7 +51,7 @@ export const RegisterScreen = () => {
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
-            source={require("../../../assets/email.png")}
+            source={require("../../../../assets/email.png")}
           />
           <TextInput
             placeholder="Correo Electronico"
@@ -62,7 +62,7 @@ export const RegisterScreen = () => {
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
-            source={require("../../../assets/phone.png")}
+            source={require("../../../../assets/phone.png")}
           />
           <TextInput
             placeholder="Telefono"
@@ -73,7 +73,7 @@ export const RegisterScreen = () => {
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
-            source={require("../../../assets/password.png")}
+            source={require("../../../../assets/password.png")}
           />
           <TextInput
             placeholder="Contraseña"
@@ -85,7 +85,7 @@ export const RegisterScreen = () => {
         <View style={styles.formInput}>
           <Image
             style={styles.formIcon}
-            source={require("../../../assets/confirm_password.png")}
+            source={require("../../../../assets/confirm_password.png")}
           />
           <TextInput
             placeholder="Confirmar Contraseña"

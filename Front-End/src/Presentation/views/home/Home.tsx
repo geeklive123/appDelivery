@@ -3,19 +3,21 @@ import {useNavigation} from '@react-navigation/native'
 import { StyleSheet, Text, View, Image, TextInput,Button, ToastAndroid, TouchableOpacity } from "react-native";
 import { RoundedButton } from "../../components/RoundedButton";
 import {StackNavigationProp} from '@react-navigation/stack'
-import { RootStackParamList } from '../../../App';
+import { RootStackParamList } from '../../../../App';
+import useViewModel from './ViewModel';
 export const HomeScreen = () => {
-  const[email,setEmail]=useState('');
-  const[password,setPassword]=useState('');
+      const {email,password,onChannge}=useViewModel();
+
+
     const navigation=useNavigation<StackNavigationProp<RootStackParamList>>()
     return (
         <View style={styles.container}>
           <Image
             style={styles.imageBackground}
-            source={require("../../../assets/chef.jpg")}
+            source={require("../../../../assets/chef.jpg")}
           />
           <View style={styles.logoContainer}>
-            <Image source={require("../../../assets/logo.png")} style={styles.logoImage} />
+            <Image source={require("../../../../assets/logo.png")} style={styles.logoImage} />
             <Text style={styles.logoText}>Food App</Text>
           </View>
           <View style={styles.form}>
@@ -23,20 +25,20 @@ export const HomeScreen = () => {
             <View style={styles.formInput}>
               <Image
                 style={styles.formIcon}
-                source={require("../../../assets/email.png")}
+                source={require("../../../../assets/email.png")}
               />
               <TextInput
                 placeholder="Correo Electronico"
                 style={styles.formTextInput}
                 keyboardType="email-address"
                 value={email}
-                onChangeText={text=>setEmail(text)}
+                onChangeText={text=>onChannge('email',text)}
               />
             </View>
             <View style={styles.formInput}>
               <Image
                 style={styles.formIcon}
-                source={require("../../../assets/password.png")}
+                source={require("../../../../assets/password.png")}
               />
               <TextInput
                 placeholder="Contraseña"
@@ -44,7 +46,7 @@ export const HomeScreen = () => {
                 keyboardType="default"
                 secureTextEntry={true}
                 value={password}
-                onChangeText={text=>setPassword(text)}
+                onChangeText={text=>onChannge('password',text)}
               />
             </View>
             <View style={{marginTop:30}}>
