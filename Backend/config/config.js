@@ -3,7 +3,7 @@ const db=mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'root',
-    database:'udemy_delivery'
+    database:'delivery_app'
 })
 
 db.connect(function(err){

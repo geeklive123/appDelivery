@@ -8,7 +8,7 @@ interface Props{
 export const RoundedButton = ({text,onPress}:Props) => {
   return (
     <TouchableOpacity
-      onPress={()=>{}}
+      onPress={()=>onPress()}
     style={styles.roundedButton}
       >
         <Text style={styles.textButton}>{text}</Text>

@@ -1,5 +1,6 @@
 import React from 'react'
-import {View,TextInput,Image,StyleSheet, KeyboardType} from 'react-native'
+import { Image, TextInput, View, StyleSheet, KeyboardType } from 'react-native';
+
 
 interface Props{
     image:any,
@@ -10,25 +11,18 @@ interface Props{
     property:string,
     onChangeText:(property:string,value:any)=>void
 }
-export const CustomTextInput = ({
-    image,
-    placeholder,
-    value,
-    keyboardType,
-    secureTextEntry=false,
-    property,
-    onChangeText
-
-}:Props) => {
+export const CustomTextInput=({
+image,placeholder,value,keyboardType,secureTextEntry=false,property,onChangeText
+}:Props)=> {
   return (
     <View style={styles.formInput}>
     <Image
       style={styles.formIcon}
       source={image}
-      />
+    />
     <TextInput
-      placeholder={placeholder}
       style={styles.formTextInput}
+      placeholder={placeholder}
       keyboardType={keyboardType}
       value={value}
       onChangeText={text=>onChangeText(property,text)}
@@ -37,20 +31,20 @@ export const CustomTextInput = ({
   </View>
   )
 }
-const styles=StyleSheet.create({
-    formTextInput: {
-        flex: 1,
-        borderBottomWidth: 1,
-        borderBottomColor: "orange",
-        marginLeft: 15, 
+const styles= StyleSheet.create({
+    formIcon: {
+        width: 25,
+        height: 25,
+        marginTop: 5,
       },
       formInput: {
         flexDirection: "row",
         marginTop: 30,
       },
-      formIcon: {
-        width: 25,
-        height: 25,
-        marginTop: 5,
+      formTextInput: {
+        flex: 1,
+        borderBottomWidth: 1,
+        borderBottomColor: "#AAAAAA",
+        marginLeft: 15,
       },
 })

@@ -107,8 +107,8 @@ User.create = async (user, result) => {
             phone,
             image,
             password,
-            create_at_,
-            update_at
+            created_at,
+            updated_at
         )
     VALUES(?, ?, ?, ?, ?, ?, ?, ?)
 `;

@@ -33,7 +33,7 @@ storage:multer.memoryStorage()
 
  usersRoutes(app,upload);
 
-server.listen(3000,'192.168.1.6'|| 'localhost',function(){
+server.listen(3000,'192.168.1.8'|| 'localhost',function(){
     console.log('Aplication De NodeJs'+process.id+ port +' Iniciada...')
 });
 
