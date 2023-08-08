@@ -16,7 +16,7 @@ module.exports={
             if(err){
                 return res.status(501).json({
                     success:false,
-                    message:'Hubo un error con el registro del ususario',
+                    message:'Hubo un error con el Inicio de Sesion del ususario',
                     error:err
                 });
             }
@@ -39,7 +39,6 @@ module.exports={
                     phone:myUser.phone,
                     image:myUser.image,
                     session_token:`JWT ${token}`,
-                    roles:JSON.parse(myUser.roles)
                 }
                 return res.status(201).json({
                     success:true,
