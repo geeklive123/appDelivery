@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   View,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { RoundedButton } from "../../components/RoundedButton";
 import useViewModel from './ViewModel';
@@ -14,8 +15,12 @@ import { CustomTextInput } from "../../components/CustomTextInput";
 import styles from './Styles'
 export const RegisterScreen = () => {
 
-  const{name,lastname,email,phone,password,confirmPassword,onChange,register} =useViewModel();
-
+  const{name,lastname,email,phone,password,confirmPassword,onChange,register,errorMessage} =useViewModel();
+useEffect(()=>{
+  if(errorMessage!=''){
+    ToastAndroid.show(errorMessage,ToastAndroid.LONG);
+  }
+},[errorMessage])
   return (
     <View style={styles.container}>
       <Image
@@ -30,6 +35,7 @@ export const RegisterScreen = () => {
         <Text style={styles.logoText}>SELECCIONA UNA IMAGEN</Text>
       </View>
       <View style={styles.form}>
+        <ScrollView>
         <Text style={styles.formText}>REGISTRARSE</Text>
         <CustomTextInput
             placeholder="Nombres"
@@ -88,6 +94,9 @@ export const RegisterScreen = () => {
       
           />
         </View>
+
+        </ScrollView>
+      
       </View>
     </View>
   );
