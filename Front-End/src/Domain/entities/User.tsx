@@ -1,11 +1,11 @@
-
 export interface User {
     id? :              string,
     name:            string;
     lastname:        string;
-    email:           string;
     phone:           string;
+    email:           string;
     password:        string;
     confirmPassword: string;
     session_token?:string;
+    roles?:     Rol[];
 }

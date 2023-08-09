@@ -19,11 +19,17 @@ export const HomeScreen = ({navigation,route}:Props) => {
         ToastAndroid.show(errorMessage,ToastAndroid.LONG);
       }
     },[errorMessage])
-    useEffect (()=>{
-        if(user?.id !== null && user?.id !== undefined){
-          navigation.replace('ProfileInfoScreen');
-        }
-    },[user])
+    useEffect(() => {      
+      if (user?.id !== null && user?.id !== undefined) {
+          if (user.roles?.length! > 1) {
+              navigation.replace('RolesScreen');
+          }
+          else {
+              navigation.replace('ProfileInfoScreen');
+          }
+      }
+  }, [user])
+  
     return (
         <View style={styles.container}>
           <Image
