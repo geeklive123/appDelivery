@@ -9,13 +9,20 @@ interface Props{
     rol:Rol,
     height:number,
     width:number,
-
+    navigation:StackNavigationProp<RootStackParamList,"RolesScreen",undefined>
 }
 
-export const RolesItem=({rol,height,width}:Props)=> {
+export const RolesItem=({rol,height,width,navigation}:Props)=> {
   return (
  <TouchableOpacity 
-
+    onPress={()=>{
+        if(rol.name=='ADMIN'){
+            navigation.replace('AdminTabsNavigator');
+        }
+        else if(rol.name=='CLIENTE'){
+            navigation.replace('ClientTabsNavigator');
+        }
+    }}
  style={{...styles.container,height:height,width:width}}>
  
     <View style={styles.imageContainer}>

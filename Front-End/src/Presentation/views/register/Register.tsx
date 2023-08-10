@@ -37,7 +37,7 @@ useEffect(()=>{
 
   useEffect(()=>{
     if(user?.id !==null && user?.id !==undefined){
-      navigation.replace('ProfileInfoScreen')
+      navigation.replace('ClientTabsNavigator')
     }
   },[user])
 
