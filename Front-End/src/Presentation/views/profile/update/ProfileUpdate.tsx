@@ -14,7 +14,8 @@ interface Props extends StackScreenProps<RootStackParamList, 'ProfileUpdateScree
 export const ProfileUpdateScreen = ({navigation, route}: Props) => {
 
  
-  const { name, lastname, image, phone, loading, errorMessage, successMessage, onChange, onChangeInfoUpdate,user,  pickImage, takePhoto } = useViewModel();
+  const{user}=route.params;
+  const { name, lastname, image, phone, loading, errorMessage, successMessage, onChange, onChangeInfoUpdate, pickImage, takePhoto,update } = useViewModel(user);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -95,10 +96,9 @@ export const ProfileUpdateScreen = ({navigation, route}: Props) => {
 
             <View style={{ marginTop: 30 }}>
                 <RoundedButton
-                onPress={()=>{
-                  navigation.navigate('ProfileUpdateScreen')
-                }}
-                text='ActualizarInfomracion'
+               
+                text='Confirmar'
+                onPress={()=>update()}
                 />
                
 

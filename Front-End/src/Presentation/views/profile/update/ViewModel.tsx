@@ -5,24 +5,17 @@ import { SaveUserLocalUseCase } from '../../../../Domain/useCases/userLocal/Save
 import { useUserLocal } from '../../../hooks/useUserLocal';
 import { User } from '../../../../Domain/entities/User';
 import { ResponseApiDelivery } from '../../../../Data/sources/remote/models/ResponseApiDelivery';
-
-
-const ProfileUpdateViewModel = () => {
+import { UpdateUserUseCase } from '../../../../Domain/useCases/user/UpdateUser';
+import { UpdateWithImageUserUseCase } from '../../../../Domain/useCases/user/UpdateWithImageUser';
+const ProfileUpdateViewModel = (user:User) => {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [values, setValues] = useState({
-        name:'',
-        lastname:'',
-        phone:'',
-        email:'',
-        image:'',
-        password:'',
-        confirmPassword:'',
-    });
+    const [values, setValues] = useState(user);
     const [loading, setLoading] = useState(false);
-    const [file, setFile] = useState<ImagePicker.ImageInfo>()
-    const {user, getUserSession } = useUserLocal();
+    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
+    const{getUserSession} =useUserLocal();
+
 
 
     const pickImage = async () => {
@@ -59,30 +52,28 @@ const ProfileUpdateViewModel = () => {
         setValues({ ...values, name, lastname, phone})
     }
 
-    /*const update = async () => {
+    const update = async () => {
         if (isValidForm()) {
             setLoading(true);
             
-            let response  = {} as ResponseAPITinder;
-
+            let response ={} as ResponseApiDelivery
             if (values.image?.includes('https://')) {
                 response = await UpdateUserUseCase(values);
             }
             else {
                 response = await UpdateWithImageUserUseCase(values, file!);
             }
-            
             setLoading(false);
-            console.log('RESULT: ' + JSON.stringify(response));        
-            if (response.success) {
-                saveUserSession(response.data);
-                setSuccessMessage(response.message);
-            }
-            else {
+            console.log('RESULT'+JSON.stringify(response));
+            if(response.success){
+                await SaveUserLocalUseCase(response.data);
+                getUserSession();
+            }else{
                 setErrorMessage(response.message);
             }
-        }
-    }*/
+             }
+        
+    }
 
     const isValidForm = (): boolean => {
         if (values.name === '') {
@@ -110,7 +101,8 @@ const ProfileUpdateViewModel = () => {
         errorMessage,
         successMessage,
         loading,
-        user
+        user,
+        update
     }
 }
 
