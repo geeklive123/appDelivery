@@ -1,23 +1,29 @@
 import React, { useState, useContext } from 'react';
-import { ApiTinder } from '../../../../Data/sources/remote/api/ApiTinder';
+import { ApiDelivery } from '../../../../Data/sources/remote/api/ApiDelivery';
 import * as ImagePicker from 'expo-image-picker';
-import { SaveUserLocalUseCase } from '../../../../Domain/useCases/Local/SaveUserLocal';
+import { SaveUserLocalUseCase } from '../../../../Domain/useCases/userLocal/SaveUserLocal';
 import { useUserLocal } from '../../../hooks/useUserLocal';
-import { UpdateUserUseCase } from '../../../../Domain/useCases/user/UpdateUser';
-import { UpdateWithImageUserUseCase } from '../../../../Domain/useCases/user/UpdateWithImageUser';
 import { User } from '../../../../Domain/entities/User';
-import { ResponseAPITinder } from '../../../../Data/sources/remote/models/ResponseApiTinder';
-import { UserContext } from '../../../context/UserContext';
+import { ResponseApiDelivery } from '../../../../Data/sources/remote/models/ResponseApiDelivery';
 
-const ProfileUpdateViewModel = (user: User) => {
+
+const ProfileUpdateViewModel = () => {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [values, setValues] = useState(user);
+    const [values, setValues] = useState({
+        name:'',
+        lastname:'',
+        phone:'',
+        email:'',
+        image:'',
+        password:'',
+        confirmPassword:'',
+    });
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState<ImagePicker.ImageInfo>()
-    const { getUserSession } = useUserLocal();
-    const { saveUserSession } = useContext( UserContext );
+    const {user, getUserSession } = useUserLocal();
+
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -53,7 +59,7 @@ const ProfileUpdateViewModel = (user: User) => {
         setValues({ ...values, name, lastname, phone})
     }
 
-    const update = async () => {
+    /*const update = async () => {
         if (isValidForm()) {
             setLoading(true);
             
@@ -76,7 +82,7 @@ const ProfileUpdateViewModel = (user: User) => {
                 setErrorMessage(response.message);
             }
         }
-    }
+    }*/
 
     const isValidForm = (): boolean => {
         if (values.name === '') {
@@ -98,7 +104,6 @@ const ProfileUpdateViewModel = (user: User) => {
     return {
         ...values,
         onChange,
-        update,
         pickImage,
         takePhoto,
         onChangeInfoUpdate,

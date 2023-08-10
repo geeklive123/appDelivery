@@ -13,8 +13,8 @@ interface Props extends StackScreenProps<RootStackParamList, 'ProfileUpdateScree
 
 export const ProfileUpdateScreen = ({navigation, route}: Props) => {
 
-  const { user } = route.params;
-  const { name, lastname, image, phone, loading, errorMessage, successMessage, onChange, onChangeInfoUpdate, update, pickImage, takePhoto } = useViewModel(user);
+ 
+  const { name, lastname, image, phone, loading, errorMessage, successMessage, onChange, onChangeInfoUpdate,user,  pickImage, takePhoto } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const ProfileUpdateScreen = ({navigation, route}: Props) => {
     <View style={styles.container}>
 
         <Image
-          source={ require('../../../../../assets/user2.png') } 
+          source={ require('../../../../../assets/chef.jpg') } 
           style={ styles.imageBackground }
           />
 
@@ -67,7 +67,7 @@ export const ProfileUpdateScreen = ({navigation, route}: Props) => {
             <CustomTextInput 
               placeholder='Nombres'
               keyboardType='default'
-              image={ require('../../../../../assets/user2.png') }
+              image={ require('../../../../../assets/user.png') }
               property='name'
               onChangeText={ onChange }
               value={ name }
@@ -77,7 +77,7 @@ export const ProfileUpdateScreen = ({navigation, route}: Props) => {
             <CustomTextInput 
               placeholder='Apellidos'
               keyboardType='default'
-              image={ require('../../../../../assets/user2.png') }
+              image={ require('../../../../../assets/user.png') }
               property='lastname'
               onChangeText={ onChange }
               value={ lastname }
@@ -87,15 +87,20 @@ export const ProfileUpdateScreen = ({navigation, route}: Props) => {
             <CustomTextInput 
               placeholder='Telefono'
               keyboardType='numeric'
-              image={ require('../../../../../assets/user2.png') }
+              image={ require('../../../../../assets/user.png') }
               property='phone'
               onChangeText={ onChange }
               value={ phone }
               />
 
             <View style={{ marginTop: 30 }}>
-                
-                <RoundedButton text='CONFIRMAR' onPress={ () => update()} />
+                <RoundedButton
+                onPress={()=>{
+                  navigation.navigate('ProfileUpdateScreen')
+                }}
+                text='ActualizarInfomracion'
+                />
+               
 
             </View>
 

@@ -7,13 +7,15 @@ import { ProfileInfoScreen } from './src/Presentation/views/profile/info/Profile
 import { RolesScreen } from './src/Presentation/views/roles/Roles';
 import { ClientTabsNavigator } from './src/Presentation/navigator/ClientTabsNavigator';
 import { AdminTabsNavigator } from './src/Presentation/navigator/AdminTabsNavigator';
+import { ProfileUpdateScreen } from './src/Presentation/views/profile/update/ProfileUpdate';
 
 export type RootStackParamList={
   HomeScreen:undefined,
   RegisterScreen:undefined,
   RolesScreen:undefined,
   AdminTabsNavigator:undefined,
-  ClientTabsNavigator:undefined
+  ClientTabsNavigator:undefined,
+  ProfileUpdateScreen:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,6 +45,16 @@ const App = () => {
       <Stack.Screen
           name="RolesScreen"
           component={RolesScreen}
+          options={{
+            headerShown:true,
+            title:'Selecciona un Rol'
+          }}
+        
+        />
+
+<Stack.Screen
+          name="ProfileUpdateScreen"
+          component={ProfileUpdateScreen}
           options={{
             headerShown:true,
             title:'Selecciona un Rol'
