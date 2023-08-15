@@ -10,6 +10,7 @@ import { AdminTabsNavigator } from './src/Presentation/navigator/AdminTabsNaviga
 import { ProfileUpdateScreen } from './src/Presentation/views/profile/update/ProfileUpdate';
 import { User } from './src/Domain/entities/User';
 import { UserProvider } from './src/Presentation/context/UserContext';
+import { AdminCategoryCreateScreen } from './src/Presentation/views/admin/category/create/CategoryCreate';
 
 export type RootStackParamList={
   HomeScreen:undefined,
@@ -18,6 +19,7 @@ export type RootStackParamList={
   AdminTabsNavigator:undefined,
   ClientTabsNavigator:undefined,
   ProfileUpdateScreen:{user:User},
+  AdminCategoryCreateScreen:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -54,26 +56,33 @@ const App = () => {
           }}
         
         />
-
-<Stack.Screen
-          name="ProfileUpdateScreen"
-          component={ProfileUpdateScreen}
-          options={{
-            headerShown:true,
-            title:'Selecciona un Rol'
-          }}
-        
-        />
-        <Stack.Screen
-          name="ClientTabsNavigator"
-          component={ClientTabsNavigator}
- 
-        />
-<Stack.Screen
+      <Stack.Screen
           name="AdminTabsNavigator"
           component={AdminTabsNavigator}
  
         />
+         <Stack.Screen
+          name="ClientTabsNavigator"
+          component={ClientTabsNavigator}
+ 
+        />
+      <Stack.Screen
+          name="ProfileUpdateScreen"
+          component={ProfileUpdateScreen}
+          options={{
+            headerShown:true,
+            title:'Actualizar Usuario'
+          }}
+        />
+        <Stack.Screen
+          name="AdminCategoryCreateScreen"
+          component={AdminCategoryCreateScreen}
+          options={{
+            headerShown:true,
+            title:'Creacion de Categoria'
+          }}
+        />
+
       </Stack.Navigator>
       </UserState>
      
