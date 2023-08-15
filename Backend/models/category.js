@@ -61,4 +61,28 @@ Category.create = (category, result) => {
         }
     )
 }
+Category.delete=(id,result)=>{
+    const sql=`
+    DELETE FROM
+     categories
+     WHERE
+        id=?
+     `;
+     db.query(
+        sql,
+        id,
+        (err, res) => {
+           if (err) {
+               console.log('Error:', err);
+               result(err, null);
+           }
+           else {
+               console.log('Id de la categoria eliminada:', id);
+               result(null, res.insertId);
+           }
+       }
+
+     )
+     
+}
 module.exports = Category;

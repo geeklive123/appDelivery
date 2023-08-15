@@ -3,16 +3,17 @@ import { Category } from '../../../../../Domain/entities/Category'
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { StackScreenProps, StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../../../App';
 
 
 interface Props {
     category: Category;
-  
+  remove:(id:string)=> void;
 }
 
-export const AdminCategoryListItem = ({category}: Props) => {
+export const AdminCategoryListItem = ({category,remove}: Props) => {
 
-
+    const navigation =useNavigation<StackNavigationProp<RootStackParamList>>();
   return (
     <TouchableOpacity>
         <View style={ styles.container }>
@@ -28,6 +29,7 @@ export const AdminCategoryListItem = ({category}: Props) => {
 
             <View style={ styles.actionContainer }>
                 <TouchableOpacity
+                onPress={()=>navigation.navigate('AdminCategoryUpdateScreen',{category:category})}
                 >
                     <Image 
                         style={styles.actionImage}
@@ -35,7 +37,7 @@ export const AdminCategoryListItem = ({category}: Props) => {
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
-                   
+                   onPress={()=>remove(category.id!)}
                 >
                     <Image 
                         style={styles.actionImage}
