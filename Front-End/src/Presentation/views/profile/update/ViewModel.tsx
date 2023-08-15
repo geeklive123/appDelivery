@@ -7,6 +7,7 @@ import { User } from '../../../../Domain/entities/User';
 import { ResponseApiDelivery } from '../../../../Data/sources/remote/models/ResponseApiDelivery';
 import { UpdateUserUseCase } from '../../../../Domain/useCases/user/UpdateUser';
 import { UpdateWithImageUserUseCase } from '../../../../Domain/useCases/user/UpdateWithImageUser';
+import { UserContext } from '../../../context/UserContext';
 const ProfileUpdateViewModel = (user:User) => {
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -15,7 +16,7 @@ const ProfileUpdateViewModel = (user:User) => {
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
     const{getUserSession} =useUserLocal();
-
+    const{saveUserSession}=useContext(UserContext);
 
 
     const pickImage = async () => {
@@ -66,8 +67,8 @@ const ProfileUpdateViewModel = (user:User) => {
             setLoading(false);
             console.log('RESULT'+JSON.stringify(response));
             if(response.success){
-                await SaveUserLocalUseCase(response.data);
-                getUserSession();
+                saveUserSession(response.data);
+                setSuccessMessage(response.message);
             }else{
                 setErrorMessage(response.message);
             }

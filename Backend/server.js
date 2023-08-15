@@ -8,6 +8,7 @@ const cors =require('cors');
 const passport=require('passport');
 const multer=require('multer');
 const usersRoutes=require('./routes/userRoutes');
+const categoriesRoutes=require('./routes/categoryRoutes')
 
 
 const port= process.env.PORT || 3000;
@@ -32,8 +33,9 @@ storage:multer.memoryStorage()
 });
 
  usersRoutes(app,upload);
+ categoriesRoutes(app,upload);
 
-server.listen(3000,'192.168.1.8'|| 'localhost',function(){
+server.listen(3000,'192.168.1.6'|| 'localhost',function(){
     console.log('Aplication De NodeJs'+process.id+ port +' Iniciada...')
 });
 

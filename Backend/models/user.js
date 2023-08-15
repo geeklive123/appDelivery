@@ -30,7 +30,7 @@ INNER JOIN
 ON
   UHR.id_rol = R.id
 WHERE
-  id= ?
+  U.id= ?
 GROUP BY
   U.id
 `;
@@ -107,8 +107,8 @@ User.create = async (user, result) => {
             phone,
             image,
             password,
-            create_at_,
-            update_at
+            created_at,
+            updated_at
         )
     VALUES(?, ?, ?, ?, ?, ?, ?, ?)
 `;

@@ -9,6 +9,7 @@ import { ClientTabsNavigator } from './src/Presentation/navigator/ClientTabsNavi
 import { AdminTabsNavigator } from './src/Presentation/navigator/AdminTabsNavigator';
 import { ProfileUpdateScreen } from './src/Presentation/views/profile/update/ProfileUpdate';
 import { User } from './src/Domain/entities/User';
+import { UserProvider } from './src/Presentation/context/UserContext';
 
 export type RootStackParamList={
   HomeScreen:undefined,
@@ -24,6 +25,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const App = () => {
   return (
     <NavigationContainer>
+      <UserState>
       <Stack.Navigator screenOptions={{
         headerShown:false
       }}>
@@ -73,7 +75,18 @@ const App = () => {
  
         />
       </Stack.Navigator>
+      </UserState>
+     
     </NavigationContainer>
   );
 };
+
+const UserState =({children}:any)=>{
+  return(
+    <UserProvider>
+      {children}
+    </UserProvider>
+  )
+}
+
 export default App;

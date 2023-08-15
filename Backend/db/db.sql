@@ -11,3 +11,11 @@ create_at_ TIMESTAMP(0) NOT NULL,
 update_at TIMESTAMP(0) NOT NULL
 
 );
+CREATE TABLE categories(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    image VARCHAR (255) NULL,
+    create_at_ TIMESTAMP(0) NOT NULL,
+    update_at TIMESTAMP(0) NOT NULL
+);
