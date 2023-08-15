@@ -1,21 +1,47 @@
 const db= require ('../config/config');
-const Category ={}
+const Category ={};
+Category.getAll = (result) => {
+    const sql = `
+    SELECT
+        id,
+        name,
+        description,
+        image
+    FROM
+        categories
+    ORDER BY
+        name
+    `;
 
-Category.create =(category,result) =>{
-
-     const sql = `
-     INSERT INTO
-         categories(
-             name,
-             description,
-             image,
-             create_at,
-             update_at
-         )
-     VALUES(?, ?, ?, ?)
-     `;
-     db.query(
+    db.query(
         sql,
+        (err, data) => {
+            if (err) {
+                console.log('Error:', err);
+                result(err, null);
+            }
+            else {
+                console.log('Id de la nueva categoria:', data);
+                result(null, data);
+            }
+        }
+    )
+}
+Category.create = (category, result) => {
+    const sql = `
+    INSERT INTO
+        categories(
+            name,
+            description,
+            image,
+            create_at_,
+            update_at
+        )
+    VALUES(?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+        sql, 
         [
             category.name,
             category.description,
@@ -23,15 +49,16 @@ Category.create =(category,result) =>{
             new Date(),
             new Date()
         ],
-        (err,res)=>{
-            if(err){
-                console.log('Error',err);
-                result(err,null);
+        (err, res) => {
+            if (err) {
+                console.log('Error:', err);
+                result(err, null);
             }
-            else{
-                console.log('Id de la nueva cagetoria Obtenido',res.insertId);
-                result(null,res.insertId);
+            else {
+                console.log('Id de la nueva categoria:', res.insertId);
+                result(null, res.insertId);
             }
         }
-     )
+    )
 }
+module.exports = Category;

@@ -2,9 +2,24 @@ const Category =require('../models/category');
 const storage= require('../utils/cloud_storage');
 
 module.exports={
+
+    async getAll(req, res) {
+        Category.getAll((err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'Hubo un al momento de listar las categorias',
+                    error: err
+                });
+            }
+
+            return res.status(201).json(data);
+        });
+    },
+
     async create(req, res) {
 
-        const category = JSON.parse(req.body.user); // CAPTURO LOS DATOS QUE ME ENVIE EL CLIENTE
+        const category = JSON.parse(req.body.category); // CAPTURO LOS DATOS QUE ME ENVIE EL CLIENTE
 
         const files = req.files;
 
@@ -30,12 +45,11 @@ module.exports={
 
             return res.status(201).json({
                 success: true,
-                message: 'El categoria se creo correctamente',
+                message: 'La categoria se creo correctamente',
                 data: `${id}`
             });
-         
-
         });
 
     },
+
 }

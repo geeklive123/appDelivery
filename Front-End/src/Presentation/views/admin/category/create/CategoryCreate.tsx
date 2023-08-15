@@ -1,18 +1,39 @@
-import React from 'react'
-import {View,Text,Image,TouchableOpacity} from 'react-native'
+import React,{useState,useEffect} from 'react'
+import {View,Text,Image,TouchableOpacity, ActivityIndicator, ToastAndroid} from 'react-native'
 import useViewModel from './ViewModel'
 import styles from './Styles'
 import { CustomTextInput } from '../../../../components/CustomTextInput'
 import { RoundedButton } from '../../../../components/RoundedButton'
+import { ModalPickImage } from '../../../../components/ModalPickImage'
+import { MyColors, MyStyles } from '../../../../theme/AppTheme'
+
 export const AdminCategoryCreateScreen = () => {
-    const {name,description,image,onChange}=useViewModel();
+    const {name,description,image,onChange,takePhoto,pickImage,loading,responseMessage,createCategory}=useViewModel();
+    const [modalVisible, setModalVisible] = useState(false);
+    useEffect(()=>{
+    if(responseMessage!==''){
+ 
+        ToastAndroid.show(responseMessage,ToastAndroid.LONG);
+      }
+    } ,[responseMessage])
+   
+ 
   return (
  <View style={styles.container}>
-   <TouchableOpacity style={styles.imageContainer}>
-    <Image
-        style={styles.image}
-        source={require('../../../../../../assets/image_new.png')}
-   />
+   <TouchableOpacity style={styles.imageContainer}
+   onPress={()=>setModalVisible(true)}>
+ 
+   {
+              image == ''
+              ? <Image 
+                  source={require('../../../../../../assets/image_new.png')}
+                  style={ styles.image }
+              />
+              : <Image 
+                source={{uri:image}}
+                  style={ styles.image }
+                />
+            }
    </TouchableOpacity>
    <View style={styles.form}>
     <CustomTextInput
@@ -39,10 +60,24 @@ property='description'
     <RoundedButton
 
         text='CREAR CATEGORIA'
-        onPress={()=>{}}
+        onPress={()=>createCategory()}
     />
 </View>
-   
+<ModalPickImage
+          openGallery={ pickImage }
+          openCamera={ takePhoto }
+          modalUseState={ modalVisible }
+          setModalUseState={ setModalVisible }
+          />
+
+        {
+          loading && 
+          <ActivityIndicator 
+            style={MyStyles.loading} 
+            size="large" 
+            color={ MyColors.primary }  
+          />
+        }
  </View>
 
   )
