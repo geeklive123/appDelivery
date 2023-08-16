@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { CreateCategoryUseCase } from "../../../../../Domain/useCases/category/CreateCategory";
 import { Category } from "../../../../../Domain/entities/Category";
@@ -6,12 +6,16 @@ import { UpdateCategoryUseCase } from '../../../../../Domain/useCases/category/U
 import { UpdateWithImageUserUseCase } from "../../../../../Domain/useCases/user/UpdateWithImageUser";
 import { ResponseApiDelivery } from "../../../../../Data/sources/remote/models/ResponseApiDelivery";
 import { UpdateWithCategoryUseCase } from "../../../../../Domain/useCases/category/UpdateWithImage";
+import { CategoryContext } from "../../../../context/CategoryContext";
 
 const AdminCategoryUpdateViewModel = (category: Category) => {
   const [values, setValues] = useState(category);
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<ImagePicker.ImagePickerAsset>();
   const [responseMessage, setResponseMessage] = useState("");
+  const{update,updateWithImage}=useContext(CategoryContext);
+
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -49,10 +53,10 @@ const AdminCategoryUpdateViewModel = (category: Category) => {
     setLoading(true);
     let response ={} as ResponseApiDelivery;
     if(values.image?.includes('https://')){
-        const response= await UpdateCategoryUseCase(values);
+        const response= await update(values);
     }
     else{
-        response=await UpdateWithCategoryUseCase(values,file!);
+        response=await updateWithImage(values,file!);
     }
     setLoading(false);
     setResponseMessage(response.message);

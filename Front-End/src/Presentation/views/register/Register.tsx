@@ -17,7 +17,7 @@ import styles from './Styles'
 import * as ImagePicker from 'expo-image-picker';
 import { ModalPickImage } from "../../components/ModalPickImage";
 import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../App";
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 import { MyColors } from "../../theme/AppTheme";
 
 

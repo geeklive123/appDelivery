@@ -3,8 +3,8 @@ import { Category } from '../../../../../Domain/entities/Category'
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { StackScreenProps, StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../../../../../App';
-
+import { RootStackParamList } from '../../../../navigator/MainStackNavigator';
+import { CategoryStackParamList } from '../../../../navigator/AdminCategoryNavigator';
 
 interface Props {
     category: Category;
@@ -13,9 +13,9 @@ interface Props {
 
 export const AdminCategoryListItem = ({category,remove}: Props) => {
 
-    const navigation =useNavigation<StackNavigationProp<RootStackParamList>>();
+    const navigation =useNavigation<StackNavigationProp<CategoryStackParamList>>();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate('AdminProductNavigator',{category:category})}>
         <View style={ styles.container }>
             <Image
                 style={ styles.image }

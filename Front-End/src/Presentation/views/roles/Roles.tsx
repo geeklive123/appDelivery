@@ -6,7 +6,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import {GestureHandlerRootView} from 'react-native-gesture-handler'
 import { GetUserLocalUseCase } from '../../../Domain/useCases/userLocal/GetUserLocal';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../App';
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 
 interface Props extends StackScreenProps<RootStackParamList, 'RolesScreen'>{};
 export const RolesScreen = ({navigation,route}:Props) => {
