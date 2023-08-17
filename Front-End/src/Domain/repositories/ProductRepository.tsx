@@ -6,5 +6,7 @@ export interface ProductRepository{
    
     create(product: Product, files: ImagePicker.ImageInfo[]): Promise<ResponseApiDelivery>;
     getProductsByCategory(idCategory: string): Promise<Product[]>;
+    update(product: Product): Promise<ResponseApiDelivery>;
+    updateWithImage(product: Product, files: ImagePicker.ImageInfo[]): Promise<ResponseApiDelivery>;
     remove(product: Product): Promise<ResponseApiDelivery>;
 }

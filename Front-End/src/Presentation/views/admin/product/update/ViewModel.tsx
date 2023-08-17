@@ -17,31 +17,31 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
     const [file1, setFile1] = useState<ImagePicker.ImageInfo>()
     const [file2, setFile2] = useState<ImagePicker.ImageInfo>()
     const [file3, setFile3] = useState<ImagePicker.ImageInfo>()
-    //const { update, updateWithImage } = useContext(ProductContext);
+    const { update, updateWithImage } = useContext(ProductContext);
 
     const onChange = (property: string, value: any) => {
         setValues({ ...values, [property]: value });
     }
 
-   // const updateProduct = async () => {
-//console.log('PRODUCTO FORMULARIO: ' + JSON.stringify(values));
- //       
-   //     let files = [];
-      //  files.push(file1!);
-     //   files.push(file2!);
- //       files.push(file3!);
+   const updateProduct = async () => {
+console.log('PRODUCTO FORMULARIO: ' + JSON.stringify(values));
+     
+       let files = [];
+       files.push(file1!);
+       files.push(file2!);
+     files.push(file3!);
 
-    //    setLoading(true);
-      //  let response = {} as ResponseApiDelivery; 
-    //    if (values.image1.includes('https://') && values.image2.includes('https://') && values.image3.includes('https://')) {
-        //    response = await update(values);
-   //     }
-    //    else {
+       setLoading(true);
+        let response = {} as ResponseApiDelivery; 
+       if (values.image1.includes('https://') && values.image2.includes('https://') && values.image3.includes('https://')) {
+           response = await update(values);
+      }
+       else {
            // response = await updateWithImage(values, files);
-      //  }
-     //   setLoading(false);
-      //  setResponseMessage(response.message);
-   // }
+      }
+       setLoading(false);
+       setResponseMessage(response.message);
+    }
 
     const pickImage = async (numberImage: number) => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -96,7 +96,7 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
         onChange,
         takePhoto,
         pickImage,
-      //  updateProduct,
+       updateProduct,
         loading,
         responseMessage
     }
