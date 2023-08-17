@@ -5,5 +5,6 @@ import { ResponseApiDelivery } from "../../Data/sources/remote/models/ResponseAp
 export interface ProductRepository{
    
     create(product: Product, files: ImagePicker.ImageInfo[]): Promise<ResponseApiDelivery>;
-    getProductsByCategory():Promise<Product[]>;
+    getProductsByCategory(idCategory: string): Promise<Product[]>;
+    remove(product: Product): Promise<ResponseApiDelivery>;
 }

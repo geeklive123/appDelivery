@@ -6,6 +6,17 @@ import { AxiosError } from 'axios';
 import mime from 'mime';
 import { ApiDelivery,ApiDeliveryForImage } from '../sources/remote/api/ApiDelivery';
 export class ProductRepositoryImpl implements ProductRepository{
+
+    async getProductsByCategory(idCategory: string): Promise<Product[]> {
+        try {
+            const response = await ApiDelivery.get<Product[]>(`/products/findByCategory/${idCategory}`);
+            return Promise.resolve(response.data);
+        } catch (error) {
+            let e = (error as AxiosError);
+            console.log('ERROR: ' + JSON.stringify(e.response?.data));
+            return Promise.resolve([]);
+        }
+    }
  async create(product:Product, files:ImagePickerAsset[]):Promise<ResponseApiDelivery>{
 
         try {
@@ -32,4 +43,18 @@ export class ProductRepositoryImpl implements ProductRepository{
             return Promise.resolve(apiError)
         }
     }
+
+    async remove(product: Product): Promise<ResponseApiDelivery> {
+        try {
+            const response = await ApiDelivery.delete<ResponseApiDelivery>(`/products/delete/${product.id}`);
+            return Promise.resolve(response.data)
+
+        } catch (error) {
+            let e = (error as AxiosError);
+            console.log('ERROR: ' + JSON.stringify(e.response?.data));
+            const apiError:ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data)); 
+            return Promise.resolve(apiError)
+        }
+    }
+
 }
