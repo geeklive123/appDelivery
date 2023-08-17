@@ -6,6 +6,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { CategoryStackParamList } from "./AdminCategoryNavigator";
 import { AdminProductCreateScreen } from '../views/admin/product/create/ProductCreate';
 import { Image, TouchableOpacity } from "react-native";
+import { ProductProvider } from "../context/ProductContext";
 
 export type ProductStackParamList={
     AdminProductListScreen:{category:Category},
@@ -16,7 +17,8 @@ interface Props extends StackScreenProps<CategoryStackParamList,'AdminProductNav
 
 export const AdminProductNavigator=({navigation,route}:Props)=>{
     return(
-        <Stack.Navigator  
+      <ProductState>
+     <Stack.Navigator  
         screenOptions={{
             headerShown:false
         }}
@@ -52,5 +54,15 @@ export const AdminProductNavigator=({navigation,route}:Props)=>{
             />      
 
         </Stack.Navigator>
+      </ProductState>
+   
     )
+}
+
+const ProductState=({children}:any)=>{
+  return (
+    <ProductProvider>
+      {children}
+    </ProductProvider>
+  )
 }

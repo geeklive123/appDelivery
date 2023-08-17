@@ -1,146 +1,149 @@
-import React,{useState,useEffect} from 'react'
-import {View,Text,Image,TouchableOpacity, ActivityIndicator, ToastAndroid,ScrollView} from 'react-native'
-import useViewModel from './ViewModel'
-import styles from './Styles'
-import { CustomTextInput } from '../../../../components/CustomTextInput'
-import { RoundedButton } from '../../../../components/RoundedButton'
-import { ModalPickImage } from '../../../../components/ModalPickImage'
-import { MyColors, MyStyles } from '../../../../theme/AppTheme'
-import { StackScreenProps } from '@react-navigation/stack'
-import { ProductStackParamList } from '../../../../navigator/AdminProductNavigator'
-import { ModalPickMultipleImage } from '../../../../components/ModalPickMultipleImage'
+import React, {useState, useEffect} from 'react'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, ToastAndroid, ScrollView } from 'react-native';
+import { CustomTextInput } from '../../../../components/CustomTextInput';
+import { ModalPickImage } from '../../../../components/ModalPickImage';
+import { RoundedButton } from '../../../../components/RoundedButton';
+import { MyColors, MyStyles } from '../../../../theme/AppTheme';
+import styles from './Styles';
+import useViewModel from './ViewModel';
+import { StackScreenProps } from '@react-navigation/stack';
+import { ProductStackParamList } from '../../../../navigator/AdminProductNavigator';
+import { ModalPickMultipleImage } from '../../../../components/ModalPickMultipleImage';
 
-interface Props extends StackScreenProps<ProductStackParamList,'AdminProductCreateScreen'>{};
+interface Props extends StackScreenProps<ProductStackParamList, 'AdminProductCreateScreen'>{};
 
-export const AdminProductCreateScreen = ({navigation,route}:Props) => {
-    const {category}=route.params;
-    const {name,description,image1,image2,image3,price,onChange,takePhoto,pickImage,loading,responseMessage,createProduct}=useViewModel(category);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [numberImage,setNumberImage]=useState(1);
+export const AdminProductCreateScreen = ({navigation, route}: Props) => {
 
-    useEffect(()=>{
-    if(responseMessage!==''){
- 
-        ToastAndroid.show(responseMessage,ToastAndroid.LONG);
-      }
-    } ,[responseMessage])
-   
- 
+  const { category } = route.params;
+  const { name, description, responseMessage, loading, image1, image2, image3, price, onChange, takePhoto, pickImage, createProduct } = useViewModel(category);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [numberImage, setNumberImage] = useState(1);
+
+  useEffect(() => {
+    if (responseMessage !== '') {
+      ToastAndroid.show(responseMessage, ToastAndroid.LONG);
+    }
+  }, [responseMessage])
+  
+
   return (
- <View style={styles.container}>
-    <View style={styles.imageContainer}>
-    <TouchableOpacity 
-   onPress={()=>{
-    setNumberImage(1)
-    setModalVisible(true)
-   }}>
- 
-   {
-              image1 == ''
-              ? <Image 
-                  source={require('../../../../../../assets/image_new.png')}
+    <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity 
+              onPress={() => {
+                setNumberImage(1)
+                setModalVisible(true)
+              }}
+          >
+              {
+                image1 == ''
+                ? <Image
                   style={ styles.image }
+                  source={ require('../../../../../../assets/image_new.png') }
+                  />
+                : <Image 
+                    source={{ uri: image1 }}
+                    style={ styles.image }
+                  />
+              }
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+              onPress={() => {
+                setNumberImage(2)
+                setModalVisible(true)
+              }}
+          >
+              {
+                image2 == ''
+                ? <Image
+                  style={ styles.image }
+                  source={ require('../../../../../../assets/image_new.png') }
+                  />
+                : <Image 
+                    source={{ uri: image2 }}
+                    style={ styles.image }
+                  />
+              }
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+              onPress={() => {
+                setNumberImage(3)
+                setModalVisible(true)
+              }}
+          >
+              {
+                image3 == ''
+                ? <Image
+                  style={ styles.image }
+                  source={ require('../../../../../../assets/image_new.png') }
+                  />
+                : <Image 
+                    source={{ uri: image3 }}
+                    style={ styles.image }
+                  />
+              }
+          </TouchableOpacity>
+        </View>
+        
+        <View style={ styles.form }>
+            <ScrollView>
+              <View style={styles.categoryInfo}>
+                <Image
+                  style={styles.imageCategory}
+                  source={ require('../../../../../../assets/menu.png') }
+                  />
+                <Text style={styles.textCategory}>Categoria Seleccionada</Text>
+                <Text>{ category.name }</Text>
+              </View>
+
+              <CustomTextInput 
+                  placeholder='Nombre de la producto'
+                  image={ require('../../../../../../assets/categories.png')}
+                  keyboardType='default'
+                  property='name'
+                  value={name}
+                  onChangeText={ onChange }
               />
-              : <Image 
-                source={{uri:image1}}
-                  style={ styles.image }
-                />
-            }
-   </TouchableOpacity>
-   <TouchableOpacity 
-   onPress={()=>{
-    setNumberImage(2)
-    setModalVisible(true)
-   }}>
- 
-   {
-              image2 == ''
-              ? <Image 
-                  source={require('../../../../../../assets/image_new.png')}
-                  style={ styles.image }
+              <CustomTextInput 
+                  placeholder='Descripcion'
+                  image={ require('../../../../../../assets/description.png')}
+                  keyboardType='default'
+                  property='description'
+                  value={description}
+                  onChangeText={ onChange }
               />
-              : <Image 
-                source={{uri:image2}}
-                  style={ styles.image }
-                />
-            }
-   </TouchableOpacity>
-   <TouchableOpacity 
-   onPress={()=>{
-    setNumberImage(3)
-    setModalVisible(true)
-   }}>
- 
-   {
-              image3 == ''
-              ? <Image 
-                  source={require('../../../../../../assets/image_new.png')}
-                  style={ styles.image }
+              
+              <CustomTextInput 
+                  placeholder='Precio'
+                  image={ require('../../../../../../assets/price.png')}
+                  keyboardType='numeric'
+                  property='price'
+                  value={price.toString()}
+                  onChangeText={ onChange }
               />
-              : <Image 
-                source={{uri:image3}}
-                  style={ styles.image }
-                />
-            }
-   </TouchableOpacity>
-    </View>
-   
-   <View style={styles.form}>
-    <ScrollView>
-    <View style={styles.categoryInfo} >
-    <Image 
-    style={styles.imageCategory}
-    source={require('../../../../../../assets/categories.png')}
-    />
-    <Text style={styles.textCategory}>Categoria Seleccionada</Text>
-    <Text>{category.name}</Text>
-</View>
-    <CustomTextInput
 
-    placeholder='Nombre del Producto'
-    image={require('../../../../../../assets/categories.png')}
-    keyboardType='default'
-    value={name}
-    onChangeText={onChange}
-    property='name'
-    />
-     <CustomTextInput
+              <View style={styles.buttonContainer}>
+                  <RoundedButton 
+                      text='CREAR PRODUCTO'
+                      onPress={() => createProduct()}
+                  />
+              </View>
+              
+            </ScrollView>
 
-placeholder='Descripcion'
-image={require('../../../../../../assets/description.png')}
-keyboardType='default'
-value={description}
-onChangeText={onChange}
-property='description'
+        </View>
 
-/>
-<CustomTextInput
+        
 
-placeholder='Precio'
-image={require('../../../../../../assets/price.png')}
-keyboardType='numeric'
-value={price}
-onChangeText={onChange}
-property='price'
 
-/>
-
-   
-   <View style={styles.buttonContainer}>
-    <RoundedButton
-
-        text='CREAR PRODUCTO'
-        onPress={()=>createProduct()}
-    />
-</View>
-    </ScrollView>
-    </View>
-<ModalPickMultipleImage
+        <ModalPickMultipleImage
           openGallery={ pickImage }
           openCamera={ takePhoto }
           modalUseState={ modalVisible }
           setModalUseState={ setModalVisible }
-          numberImage={numberImage}
+          numberImage={ numberImage }
           />
 
         {
@@ -151,7 +154,6 @@ property='price'
             color={ MyColors.primary }  
           />
         }
- </View>
-
+    </View>
   )
 }
