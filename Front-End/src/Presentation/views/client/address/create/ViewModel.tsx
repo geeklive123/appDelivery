@@ -1,60 +1,59 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { CreateCategoryUseCase } from '../../../../../Domain/useCases/category/CreateCategory';
 import { CategoryContext } from '../../../../context/CategoryContext';
-
+import { CreateAddressUseCase } from '../../../../../Domain/useCases/address/CreateAddress';
+import { UserContext } from '../../../../context/UserContext';
  const ClientAddressCreateViewModel=()=>{
 
     const [loading, setLoading] = useState(false);
-    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
     const [responseMessage, setResponseMessage] = useState('');
-    const{create}=useContext(CategoryContext);
-
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            quality: 1
-        });
-
-        if (!result.canceled) {
-            onChange('image',result.assets[0].uri);
-    setFile(result.assets[0]);
+    const { user, saveUserSession, getUserSession } = useContext(UserContext);
+    useEffect(() => {
+        if (user.id != '') {
+            onChange('id_user', user.id);
         }
-    }
-    const takePhoto = async () => {
-        let result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            quality: 1
-        });
+    }, [user])
 
-        if (!result.canceled) {
-            onChange('image',result.assets[0].uri);
-    setFile(result.assets[0]);
-        }
-    }
-    const createCategory=async()=>{
+  
+    const createAddress=async()=>{
         setLoading(true);
-        const response =await create(values,file!);
+        const response = await CreateAddressUseCase(values);
         setLoading(false);
-         setResponseMessage(response.message);
-         resetForm();
+        setResponseMessage(response.message);
+        if (response.success) {
+            resetForm();
+            user.address = values;
+            user.address.id = response.data
+            await saveUserSession(user);
+           
+        }
+      
     }
     
     const resetForm=async()=>{
         setValues({
-            name:'',
-            description:'',
-            image:''
+            address:'',
+            neighborhood:'',
+            refPoint:'',
+            lat:0.0,
+            lng:0.0,
+            id_user:user.id!,
+    
         })
     }
 
-
+    const onChangeRefPoint = (refPoint: string, lat: number, lng:number) => {
+        setValues({ ...values, refPoint: refPoint, lat: lat, lng: lng });
+    }
     const[values,setValues]=useState({
-        name:'',
-        description:'',
-        image:''
+        address:'',
+        neighborhood:'',
+        refPoint:'',
+        lat:0.0,
+        lng:0.0,
+        id_user:'',
+
     });
 
     const onChange =(property:string,value:any)=>{
@@ -63,11 +62,10 @@ import { CategoryContext } from '../../../../context/CategoryContext';
     return{
         ...values,
         onChange,
-        takePhoto,
-        pickImage,
         loading,
         responseMessage,
-        createCategory,
+        createAddress,
+        onChangeRefPoint,
         resetForm
     }
       

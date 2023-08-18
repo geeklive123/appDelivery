@@ -23,45 +23,67 @@ export const RolesItem=({rol,height,width,navigation}:Props)=> {
             navigation.replace('ClientTabsNavigator');
         }
     }}
- style={{...styles.container,height:height,width:width}}>
- 
-    <View style={styles.imageContainer}>
-        <Image 
-        style={styles.image}
-         source={{uri:rol.image}}
-        />
-        <View style={styles.titleContainer}>
-            <Text style={styles.title}>{rol.name}</Text>
+ >
+  <View style={ styles.container }>
+            <Image
+                style={ styles.image }
+                source={{ uri: rol.image }}
+            />
+
+            <View style={styles.info}>
+                <Text style={styles.title}>{ rol.name }</Text>
+            </View>
+
         </View>
-    </View>
+      
  </TouchableOpacity>
   )
 }
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
-        alignSelf: 'center',
-        paddingBottom: 20,
-        paddingHorizontal: 7,
-    },
-    imageContainer: {
-        flex: 1,
-        backgroundColor: 'white',
-        borderRadius: 18
+        width: '100%',
+        flexDirection: 'row',
+        height: 90,
+        marginHorizontal: 20,
+        marginTop: 10,
+        paddingTop: 10
     },
     image: {
-        flex: 1,
-        resizeMode: 'contain'
-    },
-    titleContainer: {
+        width: 60,
         height: 60,
-        backgroundColor: MyColors.primary,
-        borderBottomLeftRadius: 18,
-        borderBottomRightRadius: 18,
-        alignItems: 'center',
-        justifyContent: 'center'
+        borderRadius: 15
+    },
+    info: {
+        marginLeft: 15,
+        flex: 1
     },
     title: {
-        color: 'white'
+        color: 'black',
+        fontSize: 15
+    },
+    description: {
+        color: 'gray',
+        fontSize: 12,
+        marginTop: 3
+    },
+    price: {
+        color: 'green',
+        fontSize: 12,
+        fontWeight: 'bold'
+    },
+    actionContainer: {
+        marginRight: 40
+    },
+    actionImage: {
+        width: 25,
+        height: 25,
+        marginVertical:2
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#f2f2f2',
+        marginHorizontal: 30,
+        flex: 1
     }
-})
+});

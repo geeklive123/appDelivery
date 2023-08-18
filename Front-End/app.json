@@ -33,7 +33,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package":"com.optic.front-end",
+      "config":{
+        "googleMaps":{
+          "apiKey":"AIzaSyDWKIyqK0OY8B3ubN1G4Z_1419lhR1En40"
+        }
+      },
+      "permission":[
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

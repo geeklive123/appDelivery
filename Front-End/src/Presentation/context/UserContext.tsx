@@ -38,8 +38,8 @@ export const UserProvider=({children}:any) =>{
         setUser(user);
     }
 
-    const getUserSession =async()=>{
-        const user =await GetUserLocalUseCase();
+      const getUserSession = async() =>  {
+        const user = await GetUserLocalUseCase();
         setUser(user);
     }
 

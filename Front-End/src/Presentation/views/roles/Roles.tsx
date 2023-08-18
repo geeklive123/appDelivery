@@ -15,34 +15,13 @@ export const RolesScreen = ({navigation,route}:Props) => {
     const [snapDirection, setSnapDirection] = useState<'left'|'right'>('left');
     const width=Dimensions.get('window').width;
     const height=Dimensions.get('window').height;
-  return (
-   
- <GestureHandlerRootView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
-<View>
-
-{/*<FlatList
+    return (
+      <View style={{backgroundColor: 'white'}}>
+          <FlatList
             data={ user?.roles }
-            renderItem={ ({item}) => <RolesItem rol={ item } height={ 420 } width={ width - 100 } />}
-  keyExtractor={ (item) => item.id } />*/}
-  <Carousel
-          loop={false}
-          width={width}
-          height={height / 1}
-          autoPlay={false}
-          data={ user?.roles! }
-          scrollAnimationDuration={1000}
-          // onSnapToItem={(index) => console.log('current index:', index)}
-          renderItem={ ({item}) => <RolesItem rol={ item } height={ 400 } width={ width - 100  } navigation={navigation}/>}
-          modeConfig={{
-            snapDirection,
-            stackInterval: 30
-          }}
-          mode={mode}
-          />
-            </View>
-</GestureHandlerRootView>
-    
- 
-  )
+            keyExtractor={(item) => item.id!}
+            renderItem={ ({item}) => <RolesItem rol={ item } height={ 400 } width={ width - 100  } navigation={navigation}/>}
+            />
+      </View>
+    )
 }
