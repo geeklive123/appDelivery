@@ -1,44 +1,44 @@
-import { StackScreenProps } from '@react-navigation/stack'
-import React,{useState} from 'react'
-import {View,Dimensions,Image,TouchableOpacity,Text} from 'react-native'
-import { ClientStackParamList } from '../../../../navigator/ClientStackNavigator'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import Carousel from 'react-native-reanimated-carousel'
-import useViewModel from './ViewModel'
-import styles from './Styles'
-import { RoundedButton } from '../../../../components/RoundedButton'
-interface Props extends StackScreenProps<ClientStackParamList,'ClientProductDetailScreen'>{}
+import React, { useState } from 'react'
+import { View, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { ClientStackParamList } from '../../../../navigator/ClientStackNavigator';
+import styles from './Styles';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Carousel from 'react-native-reanimated-carousel';
+import useViewModel from './ViewModel';
+import { RoundedButton } from '../../../../components/RoundedButton';
+interface Props extends StackScreenProps<ClientStackParamList, 'ClientProductDetailScreen'>{};
 
-export const ClientProductDetailScreen= ({navigation,route}:Props)=>{
-    const {product}=route.params;
+export const ClientProductDetailScreen = ({navigation, route}: Props) => {
+
+    const {product} = route.params;
     const width = Dimensions.get('window').width;
     const height = Dimensions.get('window').height;
-    const [mode, setMode] = useState<any>('horizontal-stack');
-    const [snapDirection, setSnapDirection] = useState<'left'|'right'>('left');
-    const {productImageList,quantity,price,addItem,removeItem} =useViewModel(product);
-    return(
-        <View  style={styles.container}>
- <GestureHandlerRootView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+    const { shoppingBag, productImageList, quantity, price, addToBag, addItem, removeItem } = useViewModel(product);
 
-       
+    return (
+        <View style={styles.container}>
 
-        <Carousel
-          loop={false}
-          width={width}
-          height={height}
-          autoPlay={true}
-          data={ productImageList }
-          scrollAnimationDuration={10000}
-          // onSnapToItem={(index) => console.log('current index:', index)}
-          renderItem={ ({item}) =>  <Image 
-          source={{ uri: item }} 
-          style={styles.productImage}
-      />
-        }
-          />
+            <GestureHandlerRootView>
+                <Carousel
+                    loop={false}
+                    width={width}
+                    height={height}
+                    autoPlay={true}
+                    data={ productImageList }
+                    autoPlayInterval={10000}
+                    scrollAnimationDuration={1000}
+                    // onSnapToItem={(index) => console.log('current index:', index)}
+                    renderItem={ ({item}) => 
+                        <Image 
+                            source={{ uri: item }} 
+                            style={styles.productImage}
+                        />
+                    }
+                    />
+            </GestureHandlerRootView>
 
-    </GestureHandlerRootView>
-    <View style={styles.productDetail}>
+            <View style={styles.productDetail}>
                 <View style={styles.productInfo}>
                     {/* NOMBRE */}
                     <Text style={ styles.name }>{ product.name }</Text>
@@ -55,10 +55,12 @@ export const ClientProductDetailScreen= ({navigation,route}:Props)=>{
                     <View style={styles.divider}></View>
                     
                     {/* ORDEN */}
+                    <Text style={ styles.descriptionTitle}>Tu orden</Text>
                     <Text style={ styles.descriptionContent }>Cantidad: {quantity}</Text>
                     <Text style={ styles.descriptionContent }>Precio total: { price }</Text>
                     <View style={styles.divider}></View>
                 </View>
+
                 <View style={styles.productActions}>
                     
                     <TouchableOpacity 
@@ -80,14 +82,22 @@ export const ClientProductDetailScreen= ({navigation,route}:Props)=>{
                     </TouchableOpacity>
                     
                     <View style={styles.buttonAdd}>
-                        <RoundedButton text='AGREGAR A LA BOLSA' onPress={() => {}} />
+                        <RoundedButton text='AGREGAR A LA BOLSA' onPress={() => addToBag()} />
                     </View>
 
                 </View>
-                    
-
-                </View>
             </View>
-      
+
+
+            <TouchableOpacity
+                onPress={() => navigation.pop()}
+                style={ styles.back }
+            >
+                <Image
+                    style={styles.backImage}        
+                    source={require('../../../../../../assets/back.png')}
+                />
+            </TouchableOpacity>
+        </View>
     )
 }
