@@ -11,6 +11,7 @@ const usersRoutes=require('./routes/userRoutes');
 const categoriesRoutes=require('./routes/categoryRoutes')
 const productRoutes=require('./routes/productRoutes')
 const addressRoutes=require('./routes/addressRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 
 const port= process.env.PORT || 3000;
 
@@ -37,6 +38,7 @@ storage:multer.memoryStorage()
  categoriesRoutes(app,upload);
  addressRoutes(app);
  productRoutes(app ,upload);
+ orderRoutes(app);
 
 server.listen(3000,'192.168.1.6'|| 'localhost',function(){
     console.log('Aplication De NodeJs '+ port +' Iniciada...')
