@@ -7,6 +7,7 @@ import { GetByDeliveryAndStatusOrderUseCase } from "../../Domain/useCases/order/
 import { UpdateToOnTheWayOrderUseCase } from "../../Domain/useCases/order/UpdateToOnTheWay";
 import React,{useEffect}from 'react';
 import { UpdateToDeliveredOrderUseCase } from "../../Domain/useCases/order/UpdateToDeliveredOrder";
+import { GetByClientAndStatusOrderUseCase } from "../../Domain/useCases/order/GetByClientAndStatusOrder";
 export interface OrderContextProps{
     ordersPayed: Order[],
     ordersDispatched: Order[],
@@ -15,6 +16,7 @@ export interface OrderContextProps{
      getOrdersByStatus(status:string):Promise<void>,
     updateToDispacthed(order:Order):Promise<ResponseApiDelivery>,
     getOrdersByDeliveryAndStatus(idDelivery: string, status: string): Promise<void>,
+    getOrdersByClientAndStatus(idClient: string, status: string): Promise<void>,
     updateToOnTheWay(order:Order):Promise<ResponseApiDelivery>,
     updateToDelivered(order: Order): Promise<ResponseApiDelivery>,
 }
@@ -67,6 +69,22 @@ export const OrderProvider=({children}:any)=>{
             setOrdersDelivery(result);
         }
     }
+    const getOrdersByClientAndStatus = async (idClient: string, status: string) => {
+        const result = await GetByClientAndStatusOrderUseCase(idClient, status);
+        if (status === 'PAGADO') {
+            setOrdersPayed(result);
+        }
+        else if (status === 'DESPACHADO') {
+            setOrdersDispatched(result);
+        }
+        else if (status === 'EN CAMINO') {
+            setOrdersOnTheWay(result);
+        }
+        else if (status === 'ENTREGADO') {
+            setOrdersDelivery(result);
+        }
+    }
+
 
     const updateToDispacthed = async (order:Order)=>{
         const result =await UpdateToDispatchedOrderUseCase(order);
@@ -97,7 +115,8 @@ export const OrderProvider=({children}:any)=>{
             updateToDispacthed,
             getOrdersByDeliveryAndStatus,
             updateToOnTheWay,
-            updateToDelivered
+            updateToDelivered,
+            getOrdersByClientAndStatus
         }}
         >
             {children}

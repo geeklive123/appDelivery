@@ -3,8 +3,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ProfileInfoScreen } from '../views/profile/info/ProfileInfo';
 import { ClientCategoryListScreen } from '../views/client/category/list/CategoryList';
-import { ClienteOrderListScreen } from '../views/client/order/list/OrderList';
 import { ClientStackNavigator } from './ClientStackNavigator';
+import { ClientOrderStackNavigator } from './ClientOrderStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +27,7 @@ export const ClientTabsNavigator = () => {
         }}
       />
       <Tab.Screen name="ClienteOrderListScreen" 
-      component={ClienteOrderListScreen}
+      component={ClientOrderStackNavigator}
       options={{
         title: 'Pedidos',
         tabBarLabel:'Pedidos',
