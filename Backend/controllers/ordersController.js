@@ -20,6 +20,7 @@ module.exports = {
                 d.client = JSON.parse(d.client);
                 d.products = JSON.parse(d.products);
                 d.delivery = JSON.parse(d.delivery);
+               
             }
             
             

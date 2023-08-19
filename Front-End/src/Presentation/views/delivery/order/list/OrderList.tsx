@@ -57,7 +57,7 @@ const renderScene = ({ route }: any) => {
   }
 };
 
-export const AdminOrderListScreen = () => {
+export const DeliveryOrderListScreen = () => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);

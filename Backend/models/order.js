@@ -307,7 +307,7 @@ Order.updateToDispatched = (id_order, id_delivery, result) => {
     SET
         id_delivery = ?,
         status = ?,
-        updated_at = ?
+        update_at = ?
     WHERE
         id = ?
     `;
@@ -339,7 +339,7 @@ Order.updateToOnTheWay = (id_order, id_delivery, result) => {
     SET
         id_delivery = ?,
         status = ?,
-        updated_at = ?
+        update_at = ?
     WHERE
         id = ?
     `;
@@ -371,7 +371,7 @@ Order.updateToDelivered = (id_order, id_delivery, result) => {
     SET
         id_delivery = ?,
         status = ?,
-        updated_at = ?
+        update_at = ?
     WHERE
         id = ?
     `;
