@@ -10,14 +10,14 @@ import { OrderContext } from '../../../../context/OrderContext';
         value:string
     }
 
- const AdminOrderDetailViewModel =(order:Order)=>{
+ const DeliveryOrderDetailViewModel =(order:Order)=>{
     const[total,setTotal]=useState(0.0);
     const [deliveryMen,setDeliveryMen]= useState<User[]>([]);
    const [responseMessage,setResponseMessage] = useState('');
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState<DropDownProps[]>([]);
-  const {updateToDispacthed}=useContext(OrderContext);
+  const {updateToOnTheWay}=useContext(OrderContext);
 
   useEffect(()=>{
     setDropDownItems();
@@ -41,16 +41,9 @@ import { OrderContext } from '../../../../context/OrderContext';
         setDeliveryMen(result);
     }
 
-    const dispatchOrder= async()=>{
-        if(value !==null){
-            order.id_delivery=value!;
-            const result =await updateToDispacthed(order);
-            setResponseMessage(result.message);
-        }else{
-            setResponseMessage('Selecciona el repartidor');
-        }
-        console.log('REPARTIDOR SELECCIONADO'+value);
-        
+    const updateToOnTheWayOrder = async () => {
+        const result = await updateToOnTheWay(order);
+        setResponseMessage(result.message);
     }
 
     const getTotal=()=>{
@@ -70,9 +63,9 @@ import { OrderContext } from '../../../../context/OrderContext';
         setValue,
         items,
         setItems,
-        dispatchOrder,
+        updateToOnTheWayOrder,
         responseMessage
         
     }
 }
-export default AdminOrderDetailViewModel;
+export default DeliveryOrderDetailViewModel;

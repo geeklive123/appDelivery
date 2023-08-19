@@ -1,13 +1,18 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import { GetByStatusOrderUseCase } from '../../../../../Domain/useCases/order/GetByStatusOrder'
 import { Order } from '../../../../../Domain/entities/Order'
 import { OrderContext } from '../../../../context/OrderContext'
+import { UserContext } from '../../../../context/UserContext'
+
 
 const DeliveryOrderListViewModel=()=>{
-    const{ordersPayed, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrdersByStatus} =useContext(OrderContext);
+    const{ordersPayed, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrdersByDeliveryAndStatus} =useContext(OrderContext);
+    const {user} =useContext(UserContext);
 
-    const getOrders= async (status:string)=>{
-        const result = await getOrdersByStatus(status)
+  
+
+    const getOrders= async (idDelivery:string,status:string)=>{
+        const result = await getOrdersByDeliveryAndStatus(idDelivery,status)
         
         console.log('Ordenes'+ JSON.stringify(result,null,3));
         
@@ -17,7 +22,8 @@ const DeliveryOrderListViewModel=()=>{
         ordersDispatched,
         ordersOnTheWay,
         ordersDelivery,
-        getOrders
+        getOrders,
+        user
     }
 }
 

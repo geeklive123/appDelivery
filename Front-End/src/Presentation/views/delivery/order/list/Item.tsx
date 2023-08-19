@@ -4,16 +4,17 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { DateFormatter } from '../../../../utils/DateFormatter';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AdminOrderStackParamList } from '../../../../navigator/AdminOrderStackNavigator';
+import { DeliveryOrderStackParamList } from '../../../../navigator/DeliveryOrderStackNavigator';
 
 
 interface Props {
     order: Order,
-    navigation: StackNavigationProp<AdminOrderStackParamList, 'AdminOrderListScreen', undefined>
+    navigation: StackNavigationProp<DeliveryOrderStackParamList, 'DeliveryOrderListScreen', undefined>
 }
 export const OrderListItem = ({ order, navigation }: Props) => {
   return (
     <TouchableOpacity
-        onPress={() => navigation.navigate('AdminOrderDetailScreen', {order: order})}
+        onPress={() => navigation.navigate('DeliveryOrderDetailScreen', {order: order})}
     >
         <View style={ styles.container }>
             <Text style={ styles.order }>Orden #{order.id}</Text>

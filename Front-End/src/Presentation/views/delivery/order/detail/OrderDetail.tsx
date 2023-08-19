@@ -8,11 +8,12 @@ import { DateFormatter } from '../../../../utils/DateFormatter'
 import useViewModel from './ViewModel'
 import { RoundedButton } from '../../../../components/RoundedButton'
 import DropDownPicker from 'react-native-dropdown-picker'
-interface Props extends StackScreenProps<AdminOrderStackParamList,'AdminOrderDetailScreen'>{};
+import { DeliveryOrderStackParamList } from '../../../../navigator/DeliveryOrderStackNavigator'
+interface Props extends StackScreenProps<DeliveryOrderStackParamList,'DeliveryOrderDetailScreen'>{};
 
 export const DeliveryOrderDetailScreen=({navigation,route}:Props)=>{
     const{order} = route.params;
-    const {total,deliveryMen,getTotal,getDeliveryMen,open,value,setOpen,setValue,items,setItems,dispatchOrder,responseMessage} =useViewModel(order);
+    const {total,deliveryMen,getTotal,getDeliveryMen,open,value,setOpen,setValue,items,setItems,updateToOnTheWayOrder,responseMessage} =useViewModel(order);
     useEffect(()=>{
         if(responseMessage!==''){
             ToastAndroid.show(responseMessage,ToastAndroid.LONG);
@@ -23,7 +24,6 @@ export const DeliveryOrderDetailScreen=({navigation,route}:Props)=>{
         if(total===0.0){
             getTotal();
         }
-       getDeliveryMen();
     },[])
 
     return(
@@ -66,24 +66,9 @@ export const DeliveryOrderDetailScreen=({navigation,route}:Props)=>{
                         source={require('../../../../../../assets/time.png')}
                     />
                 </View>
-                {
-            order.status === 'PAGADO' 
-            ? 
-            <View>
-              <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
-              <View style={ styles.dropDown }>
-                <DropDownPicker
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                />
-              </View>
-            </View>
-            : <Text style={styles.deliveries}>REPARTIDOR ASIGNADO: {order.delivery?.name}</Text>
-          }
+               
+            <Text style={styles.deliveries}>REPARTIDOR ASIGNADO: {order.delivery?.name}</Text>
+          
           
 
           
@@ -92,8 +77,12 @@ export const DeliveryOrderDetailScreen=({navigation,route}:Props)=>{
             <Text style={styles.total}>TOTAL: ${ total }</Text>
             <View style={styles.button}>
               {
-                order.status === 'PAGADO' &&
-                <RoundedButton text='DESPACHAR ORDEN' onPress={() => dispatchOrder()} />
+                order.status === 'DESPACHADO' &&
+                <RoundedButton text='INICIAR ENTREGA' onPress={() => updateToOnTheWayOrder()} />
+              }
+               {
+                order.status === 'EN CAMINO' &&
+                <RoundedButton text='IR A LA  RUTA' onPress={() => navigation.navigate('DeliveryOrderMapScreen',{order:order})} />
               }
             </View>
           </View>

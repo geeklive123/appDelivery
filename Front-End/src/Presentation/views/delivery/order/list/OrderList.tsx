@@ -8,26 +8,27 @@ import { OrderListItem } from './Item';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AdminOrderStackParamList } from '../../../../navigator/AdminOrderStackNavigator';
+import { DeliveryOrderStackParamList } from '../../../../navigator/DeliveryOrderStackNavigator';
 
 interface Props {
   status: string
 }
 const OrderListView = ({ status }: Props) => {
 
-  const { ordersPayed, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrders } = useViewModel();
-  const navigation = useNavigation<StackNavigationProp<AdminOrderStackParamList, 'AdminOrderListScreen'>>();
+  const { ordersPayed, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrders,user } = useViewModel();
+  const navigation = useNavigation<StackNavigationProp<DeliveryOrderStackParamList, 'DeliveryOrderListScreen'>>();
 
-  useEffect(() => {
-    getOrders(status);
-  }, [])
+  useEffect(()=>{
+    getOrders(user?.id!,status)
+},[user])
+
+
   
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
         <FlatList
           data={ 
-            status === 'PAGADO' 
-            ? ordersPayed 
-            : status === 'DESPACHADO'
+             status === 'DESPACHADO'
             ? ordersDispatched
             : status === 'EN CAMINO'
             ? ordersOnTheWay
@@ -44,8 +45,6 @@ const OrderListView = ({ status }: Props) => {
 
 const renderScene = ({ route }: any) => {
   switch (route.key) {
-    case 'first':
-      return <OrderListView status='PAGADO' />;
     case 'second':
       return <OrderListView status='DESPACHADO' />;
     case 'third':
@@ -53,7 +52,7 @@ const renderScene = ({ route }: any) => {
     case 'fourth':
       return <OrderListView status='ENTREGADO' />;
     default:
-      return <OrderListView status='PAGADO' />;
+      return <OrderListView status='DESPACHADO' />;
   }
 };
 
@@ -62,7 +61,6 @@ export const DeliveryOrderListScreen = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'PAGADO' },
     { key: 'second', title: 'DESPACHADO' },
     { key: 'third', title: 'EN CAMINO' },
     { key: 'fourth', title: 'ENTREGADO' },

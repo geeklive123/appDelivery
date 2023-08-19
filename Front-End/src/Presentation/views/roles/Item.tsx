@@ -19,6 +19,9 @@ export const RolesItem=({rol,height,width,navigation}:Props)=> {
         if(rol.name=='ADMIN'){
             navigation.replace('AdminTabsNavigator');
         }
+        else if(rol.name=='REPARTIDOR'){
+            navigation.replace('DeliveryTabsNavigator');
+        }
         else if(rol.name=='CLIENTE'){
             navigation.replace('ClientTabsNavigator');
         }
